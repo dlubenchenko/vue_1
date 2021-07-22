@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./theme.css" />
+		<title>Vue</title>
+	</head>
+	<body>
+		<div class="container" id="app">
+			<div class="card">
+				<h1
+					:style="{
+                    color: inputValue.length < 5 ? 'darkred' : 'darkblue',
+                }"
+				>
+					{{ title }}
+				</h1>
+				<div class="form-control">
+					<input
+						type="text"
+						:placeholder="placeHolderString"
+						v-model="inputValue"
+						@keypress.enter="addNewTitle"
+					/>
+				</div>
+				<button class="btn" @click="addNewTitle">Add</button>
+				<hr />
+				<ul class="list" v-if="items.length !== 0">
+					<li class="list-item" v-for="(note, index) in items">
+						<!-- <span :class="note.length > 5 ? 'primary' : 'bold'"
+							>{{ index + 1 }}) {{ toUpperCase(note) }}</span
+						> -->
+						<!-- <span
+							:class="{
+                            'primary':true,
+                            bold: note.length > 5
+                        }"
+							>{{ index + 1 }}) {{ toUpperCase(note) }}</span
+						> -->
+						<span :class="['bold', {'primary': note.length > 5}]"
+							>{{ index + 1 }}) {{ toUpperCase(note) }}</span
+						>
+						<button class="btn danger" @click="removeItem(index)">
+							Delete
+						</button>
+					</li>
+					<hr />
+					<li>
+						<strong>Total count of items <b>{{ items.length }}</b></strong> |
+						Double: {{ doubleCountComputed }}
+					</li>
+				</ul>
+				<div v-else>There no items</div>
+			</div>
+		</div>
+
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="./app.js"></script>
+	</body>
+</html>
